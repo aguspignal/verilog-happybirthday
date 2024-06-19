@@ -2,4 +2,5 @@ module main (
     // ..
 );
     // ..
+    // .. test
 endmodule
