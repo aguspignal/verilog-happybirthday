@@ -1,6 +1,0 @@
-module main (
-    // ..
-);
-    // ..
-    // .. test
-endmodule
