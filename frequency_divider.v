@@ -1,6 +1,6 @@
 `include "constants.vh"
 
-module freq_divider(
+module frequency_divider(
   input wire clk, 
   output wire clk_out
 );
