@@ -21,14 +21,14 @@ parameter
 // Las salidas del speaker
 wire C, D, E, F, G, A, AHash, PlusC;
 
-divider #(note_C) OUTC ( .clk_in(clk), .clk_out(C) );
-divider #(note_D) OUTD ( .clk_in(clk), .clk_out(D) );
-divider #(note_E) OUTE ( .clk_in(clk), .clk_out(E) );
-divider #(note_F) OUTF ( .clk_in(clk), .clk_out(F) );
-divider #(note_G) OUTG ( .clk_in(clk), .clk_out(G) );
-divider #(note_A) OUTA ( .clk_in(clk), .clk_out(A) );
-divider #(note_AHash) OUTAHash ( .clk_in(clk), .clk_out(AHash) );
-divider #(note_PlusC) OUTPlusC ( .clk_in(clk), .clk_out(PlusC) );
+frequency_divider #(note_C) OUTC ( .clk(clk), .clk_out(C) );
+frequency_divider #(note_D) OUTD ( .clk(clk), .clk_out(D) );
+frequency_divider #(note_E) OUTE ( .clk(clk), .clk_out(E) );
+frequency_divider #(note_F) OUTF ( .clk(clk), .clk_out(F) );
+frequency_divider #(note_G) OUTG ( .clk(clk), .clk_out(G) );
+frequency_divider #(note_A) OUTA ( .clk(clk), .clk_out(A) );
+frequency_divider #(note_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
+frequency_divider #(note_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
 
 // note_counter cuenta desde 00000 a 11000 (24), 24 notas y el resto silencio,
 // para eso se necesitan 5 bits (2^5 = 32 > 25)
@@ -37,7 +37,7 @@ reg [4:0] note_counter = 0;
 // Las notas deben tener cierta duracion, por lo que deben cambiar cuando esta
 // duracion termine y no en cada flanco del reloj principal
 wire clk_note_duration;
-divider #(note_duration) NOTE_TIMER ( .clk_in(clk), .clk_out(clk_note_duration) );
+frequency_divider #(note_duration) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
 
 always @(posedge clk_note_duration) begin
   note_counter <= note_counter + 1;
