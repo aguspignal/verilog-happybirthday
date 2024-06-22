@@ -11,8 +11,8 @@ parameter
   FREQ_F = 34383,     // 349 Hz
   FREQ_G = 30612,     // 391 Hz
   FREQ_A = 27272,     // 440 Hz
-  FREQ_AHash = 25751, // 466 Hz
-  FREQ_PlusC = 22944, // 523 Hz
+  FREQ_ASharp = 25751, // 466 Hz
+  FREQ_CMajor = 22944, // 523 Hz
   NOTE_DURATION = 3000000; // 12Mhz / 3Mhz = 4 --> T = 0.25s = 250ms
 
 // Valores DE PRUEBA para usar en el testbench y que la simulacion sea viable
@@ -23,11 +23,11 @@ parameter
   Test_F = 32,    
   Test_G = 16,    
   Test_A = 8,    
-  Test_AHash = 4,
-  Test_PlusC = 2,
+  Test_ASharp = 4,
+  Test_CMajor = 2,
   Test_NOTE_DURATION = 300;
 
-wire C, D, E, F, G, A, AHash, PlusC; // Salidas que se asignan al speaker
+wire C, D, E, F, G, A, ASharp, CMajor; // Salidas que se asignan al speaker
 wire clk_note_duration;
 reg [4:0] note_counter = 0;
 
@@ -38,8 +38,8 @@ frequency_divider #(FREQ_E) OUTE ( .clk(clk), .clk_out(E) );
 frequency_divider #(FREQ_F) OUTF ( .clk(clk), .clk_out(F) );
 frequency_divider #(FREQ_G) OUTG ( .clk(clk), .clk_out(G) );
 frequency_divider #(FREQ_A) OUTA ( .clk(clk), .clk_out(A) );
-frequency_divider #(FREQ_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
-frequency_divider #(FREQ_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
+  frequency_divider #(FREQ_ASharp) OUTASharp ( .clk(clk), .clk_out(ASharp) );
+  frequency_divider #(FREQ_CMajor) OUTCMajor ( .clk(clk), .clk_out(CMajor) );
 
 frequency_divider #(NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
 
@@ -54,8 +54,8 @@ end
 // frequency_divider #(Test_F) OUTF ( .clk(clk), .clk_out(F) );
 // frequency_divider #(Test_G) OUTG ( .clk(clk), .clk_out(G) );
 // frequency_divider #(Test_A) OUTA ( .clk(clk), .clk_out(A) );
-// frequency_divider #(Test_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
-// frequency_divider #(Test_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
+// frequency_divider #(Test_ASharp) OUTASharp ( .clk(clk), .clk_out(ASharp) );
+// frequency_divider #(Test_CMajor) OUTCMajor ( .clk(clk), .clk_out(CMajor) );
 // frequency_divider #(Test_NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
 
 always @(posedge clk) begin
@@ -76,14 +76,14 @@ always @(posedge clk) begin
 
         12: speaker_out <= C;
         13: speaker_out <= C;
-        14: speaker_out <= PlusC;
+        14: speaker_out <= CMajor;
         15: speaker_out <= A;
         16: speaker_out <= F;
         17: speaker_out <= E;
         18: speaker_out <= D;
         
-        19: speaker_out <= AHash;
-        20: speaker_out <= AHash;
+        19: speaker_out <= ASharp;
+        20: speaker_out <= ASharp;
         21: speaker_out <= A;
         22: speaker_out <= F;
         23: speaker_out <= G;
