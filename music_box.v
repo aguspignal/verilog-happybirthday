@@ -37,26 +37,26 @@ wire clk_note_duration;
 // para eso se necesitan 5 bits (2^5 = 32 > 25)
 reg [4:0] note_counter = 0;
 
-frequency_divider #(FREQ_C) OUTC ( .clk(clk), .clk_out(C) );
-frequency_divider #(FREQ_D) OUTD ( .clk(clk), .clk_out(D) );
-frequency_divider #(FREQ_E) OUTE ( .clk(clk), .clk_out(E) );
-frequency_divider #(FREQ_F) OUTF ( .clk(clk), .clk_out(F) );
-frequency_divider #(FREQ_G) OUTG ( .clk(clk), .clk_out(G) );
-frequency_divider #(FREQ_A) OUTA ( .clk(clk), .clk_out(A) );
-frequency_divider #(FREQ_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
-frequency_divider #(FREQ_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
-frequency_divider #(NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
+// frequency_divider #(FREQ_C) OUTC ( .clk(clk), .clk_out(C) );
+// frequency_divider #(FREQ_D) OUTD ( .clk(clk), .clk_out(D) );
+// frequency_divider #(FREQ_E) OUTE ( .clk(clk), .clk_out(E) );
+// frequency_divider #(FREQ_F) OUTF ( .clk(clk), .clk_out(F) );
+// frequency_divider #(FREQ_G) OUTG ( .clk(clk), .clk_out(G) );
+// frequency_divider #(FREQ_A) OUTA ( .clk(clk), .clk_out(A) );
+// frequency_divider #(FREQ_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
+// frequency_divider #(FREQ_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
+// frequency_divider #(NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
 
 // !! DESCOMENTAR ESTO Y COMENTAR ARRIBA PARA TESTEAR !!
-// frequency_divider #(Test_C) OUTC ( .clk(clk), .clk_out(C) );
-// frequency_divider #(Test_D) OUTD ( .clk(clk), .clk_out(D) );
-// frequency_divider #(Test_E) OUTE ( .clk(clk), .clk_out(E) );
-// frequency_divider #(Test_F) OUTF ( .clk(clk), .clk_out(F) );
-// frequency_divider #(Test_G) OUTG ( .clk(clk), .clk_out(G) );
-// frequency_divider #(Test_A) OUTA ( .clk(clk), .clk_out(A) );
-// frequency_divider #(Test_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
-// frequency_divider #(Test_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
-// frequency_divider #(Test_NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
+frequency_divider #(Test_C) OUTC ( .clk(clk), .clk_out(C) );
+frequency_divider #(Test_D) OUTD ( .clk(clk), .clk_out(D) );
+frequency_divider #(Test_E) OUTE ( .clk(clk), .clk_out(E) );
+frequency_divider #(Test_F) OUTF ( .clk(clk), .clk_out(F) );
+frequency_divider #(Test_G) OUTG ( .clk(clk), .clk_out(G) );
+frequency_divider #(Test_A) OUTA ( .clk(clk), .clk_out(A) );
+frequency_divider #(Test_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
+frequency_divider #(Test_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
+frequency_divider #(Test_NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
 
 always @(posedge clk_note_duration) begin
   note_counter <= note_counter + 1;
