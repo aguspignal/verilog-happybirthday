@@ -13,9 +13,9 @@ parameter
   FREQ_A = 27272,     // 440 Hz
   FREQ_AHash = 25751, // 466 Hz
   FREQ_PlusC = 22944, // 523 Hz
-  NOTE_DURATION = 3000000; // 12Mhz / 3Mhz = 4 ==> T = 0.25s = 250ms
+  NOTE_DURATION = 3000000; // 12Mhz / 3Mhz = 4 --> T = 0.25s = 250ms
 
-// Valores DE PRUEBA para usar en el testbench y que la simulacion no sea eterna
+// Valores DE PRUEBA para usar en el testbench y que la simulacion sea viable
 parameter
   Test_C = 256,    
   Test_D = 128,    
@@ -27,42 +27,37 @@ parameter
   Test_PlusC = 2,
   Test_NOTE_DURATION = 300;
 
-wire C, D, E, F, G, A, AHash, PlusC; // Salidas del speaker
-
-// Las notas deben tener cierta duracion, por lo que deben cambiar cuando esta
-// duracion termine y no en cada flanco del reloj principal
+wire C, D, E, F, G, A, AHash, PlusC; // Salidas que se asignan al speaker
 wire clk_note_duration;
-
-// note_counter cuenta desde 00000 a 11000 (24), 24 notas y el resto silencio,
-// para eso se necesitan 5 bits (2^5 = 32 > 25)
 reg [4:0] note_counter = 0;
 
-// frequency_divider #(FREQ_C) OUTC ( .clk(clk), .clk_out(C) );
-// frequency_divider #(FREQ_D) OUTD ( .clk(clk), .clk_out(D) );
-// frequency_divider #(FREQ_E) OUTE ( .clk(clk), .clk_out(E) );
-// frequency_divider #(FREQ_F) OUTF ( .clk(clk), .clk_out(F) );
-// frequency_divider #(FREQ_G) OUTG ( .clk(clk), .clk_out(G) );
-// frequency_divider #(FREQ_A) OUTA ( .clk(clk), .clk_out(A) );
-// frequency_divider #(FREQ_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
-// frequency_divider #(FREQ_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
-// frequency_divider #(NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
+// Asignamos a cada salida su frecuencia correspondiente
+frequency_divider #(FREQ_C) OUTC ( .clk(clk), .clk_out(C) );
+frequency_divider #(FREQ_D) OUTD ( .clk(clk), .clk_out(D) );
+frequency_divider #(FREQ_E) OUTE ( .clk(clk), .clk_out(E) );
+frequency_divider #(FREQ_F) OUTF ( .clk(clk), .clk_out(F) );
+frequency_divider #(FREQ_G) OUTG ( .clk(clk), .clk_out(G) );
+frequency_divider #(FREQ_A) OUTA ( .clk(clk), .clk_out(A) );
+frequency_divider #(FREQ_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
+frequency_divider #(FREQ_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
 
-// !! DESCOMENTAR ESTO Y COMENTAR ARRIBA PARA TESTEAR !!
-frequency_divider #(Test_C) OUTC ( .clk(clk), .clk_out(C) );
-frequency_divider #(Test_D) OUTD ( .clk(clk), .clk_out(D) );
-frequency_divider #(Test_E) OUTE ( .clk(clk), .clk_out(E) );
-frequency_divider #(Test_F) OUTF ( .clk(clk), .clk_out(F) );
-frequency_divider #(Test_G) OUTG ( .clk(clk), .clk_out(G) );
-frequency_divider #(Test_A) OUTA ( .clk(clk), .clk_out(A) );
-frequency_divider #(Test_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
-frequency_divider #(Test_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
-frequency_divider #(Test_NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
+frequency_divider #(NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
 
 always @(posedge clk_note_duration) begin
   note_counter <= note_counter + 1;
 end
 
-// Mux de seleccion de la nota que se asignara a la salida
+// !! DESCOMENTAR ESTO Y COMENTAR ARRIBA PARA TESTEAR !!
+// frequency_divider #(Test_C) OUTC ( .clk(clk), .clk_out(C) );
+// frequency_divider #(Test_D) OUTD ( .clk(clk), .clk_out(D) );
+// frequency_divider #(Test_E) OUTE ( .clk(clk), .clk_out(E) );
+// frequency_divider #(Test_F) OUTF ( .clk(clk), .clk_out(F) );
+// frequency_divider #(Test_G) OUTG ( .clk(clk), .clk_out(G) );
+// frequency_divider #(Test_A) OUTA ( .clk(clk), .clk_out(A) );
+// frequency_divider #(Test_AHash) OUTAHash ( .clk(clk), .clk_out(AHash) );
+// frequency_divider #(Test_PlusC) OUTPlusC ( .clk(clk), .clk_out(PlusC) );
+// frequency_divider #(Test_NOTE_DURATION) NOTE_TIMER ( .clk(clk), .clk_out(clk_note_duration) );
+
 always @(posedge clk) begin
   case (note_counter)
         0: speaker_out <= C;

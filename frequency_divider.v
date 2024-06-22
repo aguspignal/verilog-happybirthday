@@ -1,12 +1,12 @@
-module frequency_divider(
+module frequency_divider #(parameter CLK_DIV = 12000) (
   input wire clk, 
   output wire clk_out
 );
 
-parameter CLK_DIV = 12000;
-
-// bits necesarios para representar CLK_DIV
-localparam N = $clog2(CLK_DIV);
+// Bits necesarios para representar CLK_DIV
+// No podemos fijar un valor constante porque para las notas
+// necesitamos 2^16 pero para el clk_note_duration 2^22
+parameter N = $clog2(CLK_DIV);
 
 reg [N-1:0] counter = 0;
 
