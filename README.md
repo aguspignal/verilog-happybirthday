@@ -1,4 +1,4 @@
-## Informe para "Electronica Digital".
+## Informe
 
 ### Objetivo: crear una "caja musical" que reproduzca la cancion de feliz cumpleaños.
 
